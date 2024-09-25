@@ -5,9 +5,18 @@ const CreateUserForm = () => {
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  const firstNameHandler = ({ target }) => {};
-  const lastNameHandler = ({ target }) => {};
-  const phoneNumberHandler = ({ target }) => {};
+  const firstNameHandler = ({ target }) => {
+    const { value } = target;
+    setFirstName(value);
+  };
+  const lastNameHandler = ({ target }) => {
+    const { value } = target;
+    setLastName(value);
+  };
+  const phoneNumberHandler = ({ target }) => {
+    const { value } = target;
+    setPhoneNumber(value);
+  };
 
   const onSubmitHandler = (e) => {
     e.preventDefault;
