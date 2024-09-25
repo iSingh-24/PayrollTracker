@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; /* Vertically centers both the text and links */
+  padding: 10px;
+  width: 100%; /* Ensures the header takes up the full width of the screen */
+  border: 2px solid black;
+  font-size: 1.5rem;
+  color: black;
+}
+
+.nav-links {
+  display: flex;
+  /* justify-content: flex-end; */
+  padding-right: 20px; /* Optional: Adds space between links and the right edge */
+}
+
+.nav-links a {
+  margin: 0 10px;
+  text-decoration: none;
+}

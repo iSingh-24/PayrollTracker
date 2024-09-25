@@ -1,13 +1,16 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Home/Home";
+import PayrollCalculator from "./PayrollCalculator/PayrollCalculator";
+import Header from "./Header/Header";
 
 const App = () => {
   return (
     <div>
-      <h1>Payroll Calculator</h1>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/calculator" element={<PayrollCalculator />} />
       </Routes>
     </div>
   );
