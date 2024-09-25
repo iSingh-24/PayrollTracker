@@ -1,0 +1,8 @@
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
+}
+
+//the reason why we need a babel rc file is
+
+//JSX is not valid JavaScript syntax, so it needs to be transformed by Babel into valid JavaScript code that can be interpreted by the browser. In order to do that,
+//you need to use a Babel preset that includes the @babel/preset-react plugin. This preset can be included in your .babelrc file or in your Webpack configuration file.
