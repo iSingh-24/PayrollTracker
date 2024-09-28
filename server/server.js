@@ -6,6 +6,7 @@
 const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
+const router = require("./api/router");
 // const apiRoutes = require("./api/router");
 
 const app = express();
@@ -18,7 +19,7 @@ app.use(express.json()); //call the function so that it parses any json data tha
 
 app.use(morgan("dev"));
 
-// app.use("/api", apiRoutes);
+app.use("/api", router);
 
 app.get("/", (req, res) => {
   res.sendFile(path.resolve(__dirname, "..", "dist", "index.html"));
