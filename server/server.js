@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 }); //see if there's a better way then this or how did we used to do this before with router?
 
 // Error hander
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(err.status || 500).send({ error: err.message });
 });
