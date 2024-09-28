@@ -1,7 +1,7 @@
 import React from "react";
 
-const UserList = () => {
+const EmployeeList = () => {
   return <div>User List Component</div>;
 };
 
-export default UserList;
+export default EmployeeList;

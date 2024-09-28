@@ -1,7 +1,7 @@
 const db = require("../db");
 const { DataTypes } = require("sequelize");
 
-const User = db.define("user", {
+const Employee = db.define("employee", {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -26,4 +26,4 @@ const User = db.define("user", {
   },
 });
 
-module.exports = User;
+module.exports = Employee;
