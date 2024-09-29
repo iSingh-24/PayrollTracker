@@ -22,14 +22,13 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/create", async (req, res, next) => {
   try {
-    const { firstName, lastName, email, phoneNumber } = req.body;
-
+    const { firstName, lastName, phoneNumber } = req.body;
+    console.log(req.body, "here is req body");
     const newEmployee = await Employee.create({
       firstName,
       lastName,
-      email,
       phoneNumber,
     });
 

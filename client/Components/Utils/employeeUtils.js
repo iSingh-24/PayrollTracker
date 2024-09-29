@@ -12,9 +12,10 @@ const getAllEmployees = async () => {
 };
 
 const createNewEmployee = async (newEmployee) => {
-  const createdEmployee = await axios.post("/api/employee/create", {
-    newEmployee,
-  });
+  const createdEmployee = await axios.post(
+    "/api/employees/create",
+    newEmployee
+  );
 
   return createdEmployee;
 };

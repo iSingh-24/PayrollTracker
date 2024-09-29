@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createNewEmployee } from "../Utils/EmployeeUtils";
 
 const CreateEmployeeForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -18,9 +19,10 @@ const CreateEmployeeForm = () => {
     setPhoneNumber(value);
   };
 
-  const onSubmitHandler = (e) => {
-    e.preventDefault;
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
 
+    await createNewEmployee({ firstName, lastName, phoneNumber });
     setFirstName("");
     setLastName("");
     setPhoneNumber("");
@@ -56,6 +58,8 @@ const CreateEmployeeForm = () => {
           value={phoneNumber}
           required
         />
+        <br></br>
+        <button type="submit">Create Employee</button>
       </form>
     </div>
   );
