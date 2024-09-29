@@ -22,4 +22,21 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.post("/", async (req, res, next) => {
+  try {
+    const { firstName, lastName, email, phoneNumber } = req.body;
+
+    const newEmployee = await Employee.create({
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+    });
+
+    res.send(newEmployee);
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;

@@ -4,6 +4,7 @@ import Home from "./Home/Home";
 import PayrollCalculator from "./PayrollCalculator/PayrollCalculator";
 import Header from "./Header/Header";
 import EmployeeList from "./Employee/EmployeeList";
+import Settings from "./Settings/Settings";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/calculator" element={<PayrollCalculator />} />
         <Route path="/employees" element={<EmployeeList />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </div>
   );
