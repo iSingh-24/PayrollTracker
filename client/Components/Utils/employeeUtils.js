@@ -11,4 +11,13 @@ const getAllEmployees = async () => {
   return allEmployees;
 };
 
-export { getAllEmployees };
+const createNewEmployee = async (newEmployee) => {
+  const createdEmployee = await axios.post(
+    "/api/employees/create",
+    newEmployee
+  );
+
+  return createdEmployee;
+};
+
+export { getAllEmployees, createNewEmployee };
