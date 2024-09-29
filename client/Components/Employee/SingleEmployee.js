@@ -1,7 +1,7 @@
 import React from "react";
 
-const SingleEmployee = () => {
-  return <div>Single User Component</div>;
+const SingleEmployee = ({ employee }) => {
+  return <div>{employee.name}</div>;
 };
 
 export default SingleEmployee;

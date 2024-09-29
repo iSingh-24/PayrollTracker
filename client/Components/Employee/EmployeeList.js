@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAllEmployees } from "../Utils/EmployeeUtils";
+import SingleEmployee from "./SingleEmployee";
 
 /**
  * TODO: Bring in the single employee component to properly display all the employees as a list
@@ -17,9 +18,11 @@ const EmployeeList = () => {
   }, []);
 
   const [employees, setEmployees] = useState([]);
-  console.log(
-    `There are ${employees.length} number of employees in the database currently`
-  );
+
+  const allEmployees = employees.map((employee) => (
+    <SingleEmployee key={employee.id} employee={employee} />
+  ));
+
   return <div>Employee List Component</div>;
 };
 
