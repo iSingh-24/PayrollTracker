@@ -1,7 +1,6 @@
 import React from "react";
-import { deleteEmployee } from "../Utils/employeeUtils";
 
-const SingleEmployee = ({ employee }) => {
+const SingleEmployee = ({ employee, deleteEmployee }) => {
   return (
     <div>
       {employee.firstName}

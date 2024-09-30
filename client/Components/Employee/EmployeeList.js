@@ -1,27 +1,43 @@
 import React, { useEffect, useState } from "react";
-import { getAllEmployees } from "../Utils/employeeUtils";
+import {
+  getAllEmployees,
+  deleteEmployee,
+  fetchEmployees,
+} from "../Utils/employeeUtils";
 import SingleEmployee from "./SingleEmployee";
 
 /**
  * TODO: Bring in the single employee component to properly display all the employees as a list
- * TODO: Make the page auto rerender, I think the issue is the fact that the button has the onClick and upon deletion employees aren't fetched again.
+ * TODO: Look into a more efficient way to use fetchEmployees as a util function. Because we are returning something from it we need to make it await, is there a way around this?
  */
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]); // this needs to be called in sequence otherwise the dependency array will break (double check this to make sure that's how the sequence works)
 
   useEffect(() => {
-    const fetchEmployees = async () => {
+    const loadEmployees = async () => {
       const allEmployees = await getAllEmployees();
 
       setEmployees(allEmployees);
     };
 
-    fetchEmployees(); //TODO: Double check if I have a fetchEmployees in a handler outside the useEffect that initiates the function every time its clicked, will it cause the useEffect to go into an endless rerender.
+    loadEmployees();
   }, [employees.length]);
 
+  const deleteEmployeeHandler = async (employeeId) => {
+    await deleteEmployee(employeeId);
+
+    const allEmployees = await fetchEmployees();
+
+    setEmployees(allEmployees);
+  };
+
   const allEmployees = employees.map((employee) => (
-    <SingleEmployee key={employee.id} employee={employee} />
+    <SingleEmployee
+      key={employee.id}
+      employee={employee}
+      deleteEmployee={deleteEmployeeHandler}
+    />
   ));
 
   return (

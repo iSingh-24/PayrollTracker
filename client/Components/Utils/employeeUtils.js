@@ -29,4 +29,10 @@ const deleteEmployee = async (employeeId) => {
   return employeeDeleted;
 };
 
-export { getAllEmployees, createNewEmployee, deleteEmployee };
+const fetchEmployees = async () => {
+  const allEmployees = await getAllEmployees();
+
+  return allEmployees;
+};
+
+export { getAllEmployees, createNewEmployee, deleteEmployee, fetchEmployees };
