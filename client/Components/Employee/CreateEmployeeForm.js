@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createNewEmployee } from "../Utils/EmployeeUtils";
+import { createNewEmployee } from "../Utils/employeeUtils";
 
 const CreateEmployeeForm = () => {
   const [firstName, setFirstName] = useState("");
