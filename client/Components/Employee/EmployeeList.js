@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getAllEmployees } from "../Utils/EmployeeUtils";
+import { getAllEmployees } from "../Utils/employeeUtils";
 import SingleEmployee from "./SingleEmployee";
 
 /**
  * TODO: Bring in the single employee component to properly display all the employees as a list
+ * TODO: Make the page auto rerender, I think the issue is the fact that the button has the onClick and upon deletion employees aren't fetched again.
  */
 
 const EmployeeList = () => {

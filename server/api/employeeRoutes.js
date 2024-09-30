@@ -38,4 +38,15 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
+router.delete(`/:id`, async (req, res, next) => {
+  try {
+    const { id: employeeId } = req.params;
+    const employeeToDelete = await Employee.findByPk(employeeId);
+    await employeeToDelete.destroy();
+    res.send("employee was successfully deleted");
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
