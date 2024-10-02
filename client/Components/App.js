@@ -6,6 +6,7 @@ import Header from "./Header/Header";
 import EmployeeList from "./Employee/EmployeeList";
 import Settings from "./Settings/Settings";
 import CreateEmployeeForm from "./Employee/CreateEmployeeForm";
+import SingleEmployee from "./Employee/SingleEmployee";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/employees" element={<EmployeeList />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/employees/create" element={<CreateEmployeeForm />} />
+        <Route path={`/employees/:id`} element={<SingleEmployee />} />
       </Routes>
     </div>
   );

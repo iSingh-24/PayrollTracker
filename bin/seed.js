@@ -6,9 +6,24 @@ const init = async () => {
     await db.sync({ force: true }); //this will drop and recreate tables
     console.log("Database was synced successfully");
     const testEmployees = [
-      { firstName: "Madara", lastName: "Uchiha", phoneNumber: 3478532123 },
-      { firstName: "Ip", lastName: "Bryant", phoneNumber: 516422132 },
-      { firstName: "Thor", lastName: "Vinland", phoneNumber: 5214213421 },
+      {
+        firstName: "Madara",
+        lastName: "Uchiha",
+        phoneNumber: 3478532123,
+        payRate: 15.0,
+      },
+      {
+        firstName: "Ip",
+        lastName: "Bryant",
+        phoneNumber: 516422132,
+        payRate: 25.5,
+      },
+      {
+        firstName: "Thor",
+        lastName: "Vinland",
+        phoneNumber: 5214213421,
+        payRate: 20.0,
+      },
     ];
 
     const testEmployeePromises = testEmployees.map((employee) =>

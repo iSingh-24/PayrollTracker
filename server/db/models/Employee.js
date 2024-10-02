@@ -24,6 +24,13 @@ const Employee = db.define("employee", {
   phoneNumber: {
     type: DataTypes.STRING,
   },
+  payRate: {
+    type: DataTypes.DECIMAL(10, 2), //THIS WILL MAKE IT 10 DIGITS AND 2 DECIMAL PLACES
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
 });
 
 module.exports = Employee;
