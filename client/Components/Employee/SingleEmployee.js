@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const SingleEmployee = ({ employee, deleteEmployee }) => {
-  return (
+  return employee ? (
     <div>
       {employee.firstName}
       <button onClick={() => deleteEmployee(employee.id)}>X</button>
@@ -10,6 +10,8 @@ const SingleEmployee = ({ employee, deleteEmployee }) => {
         <button type="button">Update Employee</button>
       </Link>
     </div>
+  ) : (
+    <div>No Employee credentials here</div>
   );
 };
 
