@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { TotalHoursCalc, TotalHoursFraction } from "../Utils/payrollUtils";
 import "./payrollCalc.css";
 
 /**
@@ -7,38 +8,28 @@ import "./payrollCalc.css";
  * 1) Instead of input tags used to track the time, figure out how to use flatpickr library or timepicker.js
  * 2) Make a function that will find the decimal value of the minutes and hours
  * 3) Understand how the date calculator function is working in terms of the 1000 * 60 * 60 and just in general.
+
  */
 
 const PayrollCalculator = () => {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-
-  const TotalHoursCalc = (startTime, endTime) => {
-    const start = new Date(`1940-03-01T${startTime}`);
-    const end = new Date(`1940-03-01T${endTime}`);
-
-    const totalHoursMilli = end - start;
-
-    const totalHours = totalHoursMilli / (1000 * 60 * 60);
-
-    const hours = Math.floor(totalHours); //this will give you the hours as a whole
-    const minutes = Math.round((totalHours - hours) * 60);
-
-    return `Employee worked ${hours} hours and ${minutes} minutes`;
-  };
+  const [totalHoursWorked, setTotalHoursWorked] = useState(0);
+  const [payrollHours, setPayrollHours] = useState(0);
 
   const calculateHoursHandler = () => {
-    console.log(TotalHoursCalc(startTime, endTime));
+    const totalHours = TotalHoursCalc(startTime, endTime);
+    setTotalHoursWorked(totalHours);
+
+    setPayrollHours(Number(TotalHoursFraction(totalHours)).toFixed(2)); //we're going to pass in total hours because the state is updating asynchronously
   };
 
   const onStartChangeHandler = ({ target }) => {
-    console.log(target.value, "this is the start time");
     const { value } = target;
     setStartTime(value);
   };
 
   const onEndChangeHandler = ({ target }) => {
-    console.log(target.value, "the value for end time is this");
     const { value } = target;
     setEndTime(value);
   };
@@ -64,6 +55,37 @@ const PayrollCalculator = () => {
       <button type="button" onClick={() => calculateHoursHandler()}>
         Calculate Hours
       </button>
+      <div
+        style={{
+          display: "flex",
+          padding: "10px",
+        }}
+      >
+        <h3 style={{ fontSize: "1.5rem", paddingRight: "1.5rem" }}>
+          Total Hours Worked
+        </h3>
+        <input
+          type="text"
+          value={totalHoursWorked}
+          style={{ fontSize: "1.5rem" }}
+          disabled
+        />
+      </div>
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
+        <h3 style={{ fontSize: "1.5rem", paddingRight: "1.5rem" }}>
+          Total Hours Fraction
+        </h3>
+        <input
+          type="text"
+          value={payrollHours}
+          style={{ fontSize: "1.5rem" }}
+          disabled
+        />
+      </div>
     </div>
   );
 };
