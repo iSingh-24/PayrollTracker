@@ -7,11 +7,13 @@ import "./payrollCalc.css";
  * 1) Instead of input tags used to track the time, figure out how to use flatpickr library or timepicker.js
  * 2) Make a function that will find the decimal value of the minutes and hours
  * 3) Understand how the date calculator function is working in terms of the 1000 * 60 * 60 and just in general.
+ * 4) Move the functions to a utils file for cleaner code
  */
 
 const PayrollCalculator = () => {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
+  const [totalHoursWorked, setTotalHoursWorked] = useState(0);
 
   const TotalHoursCalc = (startTime, endTime) => {
     const start = new Date(`1940-03-01T${startTime}`);
@@ -22,13 +24,22 @@ const PayrollCalculator = () => {
     const totalHours = totalHoursMilli / (1000 * 60 * 60);
 
     const hours = Math.floor(totalHours); //this will give you the hours as a whole
-    const minutes = Math.round((totalHours - hours) * 60);
+    const calcMinutes = Math.round((totalHours - hours) * 60);
+    const minutes = calcMinutes < 10 ? `0${calcMinutes}` : calcMinutes;
 
-    return `Employee worked ${hours} hours and ${minutes} minutes`;
+    return `${hours}:${minutes}`;
+  };
+
+  const TotalHoursFraction = (hours) => {
+    const [totalHours, totalMinutes] = hours.split(":");
+
+    console.log(totalHours, totalMinutes);
   };
 
   const calculateHoursHandler = () => {
-    console.log(TotalHoursCalc(startTime, endTime));
+    const totalHours = TotalHoursCalc(startTime, endTime);
+    TotalHoursFraction(totalHours);
+    setTotalHoursWorked(totalHours);
   };
 
   const onStartChangeHandler = ({ target }) => {
@@ -67,12 +78,33 @@ const PayrollCalculator = () => {
       <div
         style={{
           display: "flex",
+          padding: "10px",
         }}
       >
         <h3 style={{ fontSize: "1.5rem", paddingRight: "1.5rem" }}>
           Total Hours Worked
         </h3>
-        <input type="text" />
+        <input
+          type="text"
+          value={totalHoursWorked}
+          style={{ fontSize: "1.5rem" }}
+          disabled
+        />
+      </div>
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
+        <h3 style={{ fontSize: "1.5rem", paddingRight: "1.5rem" }}>
+          Total Hours Fraction
+        </h3>
+        <input
+          type="text"
+          value={totalHoursWorked}
+          style={{ fontSize: "1.5rem" }}
+          disabled
+        />
       </div>
     </div>
   );
