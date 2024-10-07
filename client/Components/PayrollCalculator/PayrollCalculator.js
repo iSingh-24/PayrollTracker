@@ -64,6 +64,16 @@ const PayrollCalculator = () => {
       <button type="button" onClick={() => calculateHoursHandler()}>
         Calculate Hours
       </button>
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
+        <h3 style={{ fontSize: "1.5rem", paddingRight: "1.5rem" }}>
+          Total Hours Worked
+        </h3>
+        <input type="text" />
+      </div>
     </div>
   );
 };
