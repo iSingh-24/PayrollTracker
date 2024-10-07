@@ -14,6 +14,7 @@ const PayrollCalculator = () => {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [totalHoursWorked, setTotalHoursWorked] = useState(0);
+  const [payrollHours, setPayrollHours] = useState(0);
 
   const TotalHoursCalc = (startTime, endTime) => {
     const start = new Date(`1940-03-01T${startTime}`);
@@ -33,13 +34,16 @@ const PayrollCalculator = () => {
   const TotalHoursFraction = (hours) => {
     const [totalHours, totalMinutes] = hours.split(":");
 
-    console.log(totalHours, totalMinutes);
+    const fractionedMinutes = Number(totalMinutes) / 60;
+    console.log(fractionedMinutes, "here are fractioned minutes");
+    console.log(typeof fractionedMinutes);
+    return `${totalHours}.${fractionedMinutes.toString().split(".")[1]}`;
   };
 
   const calculateHoursHandler = () => {
     const totalHours = TotalHoursCalc(startTime, endTime);
-    TotalHoursFraction(totalHours);
     setTotalHoursWorked(totalHours);
+    setPayrollHours(Number(TotalHoursFraction(totalHours)).toFixed(2));
   };
 
   const onStartChangeHandler = ({ target }) => {
@@ -101,7 +105,7 @@ const PayrollCalculator = () => {
         </h3>
         <input
           type="text"
-          value={totalHoursWorked}
+          value={payrollHours}
           style={{ fontSize: "1.5rem" }}
           disabled
         />
