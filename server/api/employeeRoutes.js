@@ -22,6 +22,19 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const singleEmployee = await Employee.findByPk(id, {
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+    });
+
+    res.send(singleEmployee);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.post("/create", async (req, res, next) => {
   try {
     const { firstName, lastName, phoneNumber } = req.body;

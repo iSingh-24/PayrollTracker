@@ -39,7 +39,14 @@ const fetchEmployees = async () => {
 
 const fetchSingleEmployee = async (employeeId) => {
   const singleEmployee = await axios.get(`/api/employees/${employeeId}`); //this is one way of handling it, the other way would be me sending the employee Id as json data
+
   return singleEmployee;
 };
 
-export { getAllEmployees, createNewEmployee, deleteEmployee, fetchEmployees };
+export {
+  getAllEmployees,
+  createNewEmployee,
+  deleteEmployee,
+  fetchEmployees,
+  fetchSingleEmployee,
+};
