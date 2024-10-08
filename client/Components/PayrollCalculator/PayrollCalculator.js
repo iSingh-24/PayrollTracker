@@ -6,8 +6,7 @@ import "./payrollCalc.css";
  * TODO
  *
  * 1) Instead of input tags used to track the time, figure out how to use flatpickr library or timepicker.js
- * 2) Make a function that will find the decimal value of the minutes and hours
- * 3) Understand how the date calculator function is working in terms of the 1000 * 60 * 60 and just in general.
+ * 2) Understand how the date calculator function is working in terms of the 1000 * 60 * 60 and just in general.
 
  */
 
