@@ -10,19 +10,19 @@ const init = async () => {
         firstName: "Madara",
         lastName: "Uchiha",
         phoneNumber: 3478532123,
-        payRate: 15.0,
+        payrate: 15.0,
       },
       {
         firstName: "Ip",
         lastName: "Bryant",
         phoneNumber: 516422132,
-        payRate: 25.5,
+        payrate: 25.5,
       },
       {
         firstName: "Thor",
         lastName: "Vinland",
         phoneNumber: 5214213421,
-        payRate: 20.0,
+        payrate: 20.0,
       },
     ];
 

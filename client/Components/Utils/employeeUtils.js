@@ -43,10 +43,26 @@ const fetchSingleEmployee = async (employeeId) => {
   return singleEmployee;
 };
 
+//update an employee
+
+const updateEmployee = async (employeeCredentials) => {
+  const { firstName, lastName, payrate, phoneNumber, id } = employeeCredentials;
+  const updatedEmployee = await axios.put(`/api/employees/${id}`, {
+    firstName,
+    lastName,
+    payrate,
+    phoneNumber,
+    id,
+  });
+
+  return updatedEmployee;
+};
+
 export {
   getAllEmployees,
   createNewEmployee,
   deleteEmployee,
   fetchEmployees,
   fetchSingleEmployee,
+  updateEmployee,
 };

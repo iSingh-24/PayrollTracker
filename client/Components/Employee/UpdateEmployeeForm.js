@@ -3,23 +3,45 @@
  * TODO: Maybe set up a default value with what the user credentials currently are in the input tags
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { fetchSingleEmployee, updateEmployee } from "../Utils/employeeUtils";
 
 const UpdateEmployeeForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [payrate, setPayrate] = useState(0);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [employee, setEmployee] = useState("");
 
-  const updateEmployeeHandler = (e) => {
+  const { id } = useParams();
+
+  useEffect(() => {
+    const loadSingleEmployee = async () => {
+      const fetchedEmployee = await fetchSingleEmployee(id);
+      const employeeData = fetchedEmployee.data;
+      if (employeeData) {
+        setEmployee(employeeData);
+        setFirstName(employeeData.firstName || "");
+        setLastName(employeeData.lastName || "");
+        setPhoneNumber(employeeData.phoneNumber || "");
+        setPayrate(employeeData.payrate || 0);
+      }
+    };
+
+    loadSingleEmployee();
+  }, []);
+
+  const updateEmployeeHandler = async (e) => {
     e.preventDefault();
-
-    setFirstName("");
-    setLastName("");
-    setPayrate(0);
-    setPhoneNumber("");
-
-    console.log(`Update Employee Handler Clicked`);
+    const updatedEmployee = await updateEmployee({
+      firstName,
+      lastName,
+      payrate,
+      phoneNumber,
+      id,
+    });
+    console.log(updatedEmployee.data, "here is the updated Employee");
   };
 
   const firstNameChangeHandler = ({ target }) => {
@@ -48,7 +70,7 @@ const UpdateEmployeeForm = () => {
 
   return (
     <div>
-      <form type="submit" onSubmit={() => updateEmployeeHandler()}>
+      <form type="submit" onSubmit={(e) => updateEmployeeHandler(e)}>
         <label>Update Firstname</label>
         <input
           type="text"
@@ -74,6 +96,9 @@ const UpdateEmployeeForm = () => {
           value={phoneNumber}
           onChange={(e) => phoneNumberChangeHandler(e)}
         />
+        <br></br>
+        <br></br>
+        <button type="submit">Update Employee</button>
       </form>
     </div>
   );
