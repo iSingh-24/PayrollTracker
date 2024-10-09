@@ -67,10 +67,13 @@ const SingleEmployee = ({ employeeId }) => {
 
   return currentEmployee ? (
     <div>
-      {currentEmployee.firstName}
-
       <Link to={`/employees/${currentEmployee.id}`}>
-        <button type="button">Update Employee</button>
+        {currentEmployee.firstName}
+      </Link>
+      <br></br>
+
+      <Link to={`/employees/update/${id}`}>
+        <button>Update Employee</button>
       </Link>
       <br></br>
     </div>

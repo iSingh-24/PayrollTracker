@@ -51,6 +51,30 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
+router.put("/:id", async (req, res, next) => {
+  try {
+    //sequelize will only update the specified properties that are passed and leave the rest the same
+    //for now I will start with just sending all fields to get updated
+
+    const { firstName, lastName, payRate, phoneNumber, id } = req.body;
+
+    const employeeToUpdate = await Employee.findByPk(id);
+
+    const updatedEmployee = await employeeToUpdate.update({
+      firstName,
+      lastName,
+      payRate,
+      phoneNumber,
+    });
+
+    console.log(updatedEmployee, "here is updated Employee");
+
+    res.send(updatedEmployee);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.delete(`/:id`, async (req, res, next) => {
   try {
     const { id: employeeId } = req.params;
