@@ -25,14 +25,6 @@ const EmployeeList = () => {
     loadEmployees();
   }, [employees.length]);
 
-  const deleteEmployeeHandler = async (employeeId) => {
-    await deleteEmployee(employeeId);
-
-    const fetchedEmployees = await fetchEmployees();
-
-    setEmployees(fetchedEmployees);
-  };
-
   const allEmployees = employees.map((employee) => (
     <li key={employee.id}>
       <Link to={`/employees/${employee.id}`}>{employee.firstName}</Link>
