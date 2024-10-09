@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  getAllEmployees,
-  deleteEmployee,
-  fetchEmployees,
-} from "../Utils/employeeUtils";
+import { getAllEmployees } from "../Utils/employeeUtils";
 
 import { Link } from "react-router-dom";
 
