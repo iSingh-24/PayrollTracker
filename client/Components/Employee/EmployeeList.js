@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAllEmployees } from "../Utils/employeeUtils";
 
 import { Link } from "react-router-dom";
+import SingleEmployee from "./SingleEmployee";
 
 /**
  * TODO: Bring in the single employee component to properly display all the employees as a list
@@ -21,10 +22,16 @@ const EmployeeList = () => {
     loadEmployees();
   }, [employees.length]);
 
+  // const allEmployees = employees.map((employee) => (
+  //   <li key={employee.id}>
+  //     <Link to={`/employees/${employee.id}`}>{employee.firstName}</Link>
+  //   </li>
+  // ));
+
   const allEmployees = employees.map((employee) => (
-    <li key={employee.id}>
+    <SingleEmployee employeeId={employee.id} key={employee.id}>
       <Link to={`/employees/${employee.id}`}>{employee.firstName}</Link>
-    </li>
+    </SingleEmployee>
   ));
 
   return (
