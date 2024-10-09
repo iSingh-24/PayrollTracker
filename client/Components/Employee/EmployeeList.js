@@ -4,7 +4,8 @@ import {
   deleteEmployee,
   fetchEmployees,
 } from "../Utils/employeeUtils";
-import SingleEmployee from "./SingleEmployee";
+
+import { Link } from "react-router-dom";
 
 /**
  * TODO: Bring in the single employee component to properly display all the employees as a list
@@ -27,17 +28,15 @@ const EmployeeList = () => {
   const deleteEmployeeHandler = async (employeeId) => {
     await deleteEmployee(employeeId);
 
-    const allEmployees = await fetchEmployees();
+    const fetchedEmployees = await fetchEmployees();
 
-    setEmployees(allEmployees);
+    setEmployees(fetchedEmployees);
   };
 
   const allEmployees = employees.map((employee) => (
-    <SingleEmployee
-      key={employee.id}
-      employee={employee}
-      deleteEmployee={deleteEmployeeHandler}
-    />
+    <li key={employee.id}>
+      <Link to={`/employees/${employee.id}`}>{employee.firstName}</Link>
+    </li>
   ));
 
   return (
