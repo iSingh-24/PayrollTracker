@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  getAllEmployees,
-  deleteEmployee,
-  fetchEmployees,
-} from "../Utils/employeeUtils";
+import { getAllEmployees } from "../Utils/employeeUtils";
+
+import { Link } from "react-router-dom";
 import SingleEmployee from "./SingleEmployee";
 
 /**
@@ -24,20 +22,16 @@ const EmployeeList = () => {
     loadEmployees();
   }, [employees.length]);
 
-  const deleteEmployeeHandler = async (employeeId) => {
-    await deleteEmployee(employeeId);
-
-    const allEmployees = await fetchEmployees();
-
-    setEmployees(allEmployees);
-  };
+  // const allEmployees = employees.map((employee) => (
+  //   <li key={employee.id}>
+  //     <Link to={`/employees/${employee.id}`}>{employee.firstName}</Link>
+  //   </li>
+  // ));
 
   const allEmployees = employees.map((employee) => (
-    <SingleEmployee
-      key={employee.id}
-      employee={employee}
-      deleteEmployee={deleteEmployeeHandler}
-    />
+    <SingleEmployee employeeId={employee.id} key={employee.id}>
+      <Link to={`/employees/${employee.id}`}>{employee.firstName}</Link>
+    </SingleEmployee>
   ));
 
   return (
