@@ -37,12 +37,13 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/create", async (req, res, next) => {
   try {
-    const { firstName, lastName, phoneNumber } = req.body;
+    const { firstName, lastName, phoneNumber, payrate } = req.body;
     console.log(req.body, "here is req body");
     const newEmployee = await Employee.create({
       firstName,
       lastName,
       phoneNumber,
+      payrate,
     });
 
     res.send(newEmployee);
