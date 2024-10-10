@@ -33,8 +33,7 @@ const EmployeeList = () => {
   // ));
 
   const deleteEmployeeHandler = async (employeeId) => {
-    const deletedEmployee = await deleteEmployee(employeeId);
-    console.log("Employee was deleted");
+    await deleteEmployee(employeeId);
 
     setEmployees(await fetchEmployees());
   };

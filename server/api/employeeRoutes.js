@@ -38,7 +38,7 @@ router.get("/:id", async (req, res, next) => {
 router.post("/create", async (req, res, next) => {
   try {
     const { firstName, lastName, phoneNumber, payrate } = req.body;
-    console.log(req.body, "here is req body");
+
     const newEmployee = await Employee.create({
       firstName,
       lastName,
@@ -56,8 +56,7 @@ router.put("/:id", async (req, res, next) => {
   try {
     //sequelize will only update the specified properties that are passed and leave the rest the same
     //for now I will start with just sending all fields to get updated
-    console.log("this route was hit!");
-    console.log(req.body, "here is req body");
+
     const { firstName, lastName, payrate, phoneNumber, id } = req.body;
 
     const employeeToUpdate = await Employee.findByPk(id);
