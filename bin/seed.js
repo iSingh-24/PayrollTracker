@@ -1,6 +1,10 @@
 const db = require("../server/db/db");
 const Employee = require("../server/db/models/Employee");
 
+/**
+ * TODO: Eventually incorporate an email tab in the model and update accordingly
+ */
+
 const init = async () => {
   try {
     await db.sync({ force: true }); //this will drop and recreate tables

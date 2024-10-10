@@ -5,6 +5,7 @@ const CreateEmployeeForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [payrate, setPayrate] = useState("");
 
   const firstNameHandler = ({ target }) => {
     const { value } = target;
@@ -19,15 +20,22 @@ const CreateEmployeeForm = () => {
     setPhoneNumber(value);
   };
 
+  const payrateHandler = ({ target }) => {
+    const { value } = target;
+
+    setPayrate(value);
+  };
+
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    await createNewEmployee({ firstName, lastName, phoneNumber });
+    await createNewEmployee({ firstName, lastName, phoneNumber, payrate });
     setFirstName("");
     setLastName("");
     setPhoneNumber("");
+    setPayrate("");
 
-    //maybe add an alert here
+    alert("Employee Successfully Created");
   };
 
   return (
@@ -56,6 +64,14 @@ const CreateEmployeeForm = () => {
           placeholder="enter phone number"
           onChange={(e) => phoneNumberHandler(e)}
           value={phoneNumber}
+          required
+        />
+        <br></br>
+        <input
+          type="text"
+          placeholder="enter payrate"
+          onChange={(e) => payrateHandler(e)}
+          value={payrate}
           required
         />
         <br></br>

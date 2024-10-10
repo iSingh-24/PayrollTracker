@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getAllEmployees } from "../Utils/employeeUtils";
+import {
+  getAllEmployees,
+  deleteEmployee,
+  fetchEmployees,
+} from "../Utils/employeeUtils";
 
 import { Link } from "react-router-dom";
 import SingleEmployee from "./SingleEmployee";
@@ -28,8 +32,19 @@ const EmployeeList = () => {
   //   </li>
   // ));
 
+  const deleteEmployeeHandler = async (employeeId) => {
+    const deletedEmployee = await deleteEmployee(employeeId);
+    console.log("Employee was deleted");
+
+    setEmployees(await fetchEmployees());
+  };
+
   const allEmployees = employees.map((employee) => (
-    <SingleEmployee employeeId={employee.id} key={employee.id}>
+    <SingleEmployee
+      employeeId={employee.id}
+      key={employee.id}
+      deleteEmployee={deleteEmployeeHandler}
+    >
       <Link to={`/employees/${employee.id}`}>{employee.firstName}</Link>
     </SingleEmployee>
   ));
