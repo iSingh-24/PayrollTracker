@@ -7,6 +7,7 @@ import EmployeeList from "./Employee/EmployeeList";
 import Settings from "./Settings/Settings";
 import CreateEmployeeForm from "./Employee/CreateEmployeeForm";
 import SingleEmployee from "./Employee/SingleEmployee";
+import UpdateEmployeeForm from "./Employee/UpdateEmployeeForm";
 
 const App = () => {
   return (
@@ -19,6 +20,10 @@ const App = () => {
         <Route path="/settings" element={<Settings />} />
         <Route path="/employees/create" element={<CreateEmployeeForm />} />
         <Route path={`/employees/:id`} element={<SingleEmployee />} />
+        <Route
+          path={`/employees/update/:id`}
+          element={<UpdateEmployeeForm />}
+        />
       </Routes>
     </div>
   );
