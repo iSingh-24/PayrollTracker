@@ -20,6 +20,9 @@ const UpdateEmployeeForm = () => {
     const loadSingleEmployee = async () => {
       const fetchedEmployee = await fetchSingleEmployee(id);
       const employeeData = fetchedEmployee.data;
+
+      //the reason we need the || statement below is because in the case any of those fields are undefined, react wants there to be a way for the variables to still be controlled rather than uncontrolled
+
       if (employeeData) {
         setEmployee(employeeData);
         setFirstName(employeeData.firstName || "");
