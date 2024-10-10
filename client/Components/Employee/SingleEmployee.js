@@ -51,7 +51,7 @@ import { fetchSingleEmployee, deleteEmployee } from "../Utils/employeeUtils";
 
 //TODO: Check to see if I need to unmount the component as well
 
-const SingleEmployee = ({ employeeId }) => {
+const SingleEmployee = ({ employeeId, deleteEmployee }) => {
   const [currentEmployee, setCurrentEmployee] = useState("");
   const { id: testId } = useParams();
   const id = employeeId || testId;
@@ -75,6 +75,11 @@ const SingleEmployee = ({ employeeId }) => {
       <Link to={`/employees/update/${id}`}>
         <button>Update Employee</button>
       </Link>
+      <br></br>
+      <button type="button" onClick={() => deleteEmployee(id)}>
+        Delete Employee
+      </button>
+      <br></br>
       <br></br>
     </div>
   ) : (
