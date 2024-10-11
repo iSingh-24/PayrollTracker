@@ -1,9 +1,15 @@
 const db = require("../server/db/db");
 const Employee = require("../server/db/models/Employee");
-
+const Payroll = require("../server/db/models/Payroll");
 /**
  * TODO: Eventually incorporate an email tab in the model and update accordingly
+ * TODO: For now we're bringing the models in and defining the relationships here. I want to have a centralized way to have the models imported in the future
  */
+
+//Define relationships here for now
+
+Employee.hasMany(Payroll);
+Payroll.belongsTo(Employee);
 
 const init = async () => {
   try {

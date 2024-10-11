@@ -7,6 +7,8 @@ import "./payrollCalc.css";
  *
  * 1) Instead of input tags used to track the time, figure out how to use flatpickr library or timepicker.js
  * 2) Understand how the date calculator function is working in terms of the 1000 * 60 * 60 and just in general.
+ * 3) Have an employee dropdown list 
+ * 4) Incorporate current date so that the day the payroll is done can also be noted
 
  */
 
@@ -35,6 +37,8 @@ const PayrollCalculator = () => {
 
   return (
     <div className="container">
+      <div>{`Current Employee: `}</div>
+      <br></br>
       <label>Enter Start Time:</label>
       <input
         type="time"
@@ -85,6 +89,7 @@ const PayrollCalculator = () => {
           disabled
         />
       </div>
+      <button>Submit Hours</button>
     </div>
   );
 };
