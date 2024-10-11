@@ -29,6 +29,7 @@ router.get("/:id", async (req, res, next) => {
     const id = req.params.id;
     const singleEmployee = await Employee.findByPk(id, {
       attributes: { exclude: ["createdAt", "updatedAt"] },
+      include: [Payroll],
     });
 
     res.send(singleEmployee);
