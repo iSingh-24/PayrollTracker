@@ -1,5 +1,5 @@
+import React from "react";
 import axios from "axios";
-
 /**
  * Function that will get all employees from Db
  */
@@ -8,6 +8,7 @@ const getAllEmployees = async () => {
   const response = await axios.get("/api/employees");
 
   const { data: allEmployees } = response;
+
   return allEmployees;
 };
 
@@ -58,6 +59,18 @@ const updateEmployee = async (employeeCredentials) => {
   return updatedEmployee;
 };
 
+const mapEmployees = (employees) => {
+  const employeeDropDownList = employees.map((employee) => (
+    <option
+      key={employee.id}
+      value={`${employee.firstName} ${employee.lastName}`}
+      data-employeeid={`${employee.id}`}
+    >{`${employee.firstName} ${employee.lastName}`}</option>
+  ));
+
+  return employeeDropDownList;
+};
+
 export {
   getAllEmployees,
   createNewEmployee,
@@ -65,4 +78,5 @@ export {
   fetchEmployees,
   fetchSingleEmployee,
   updateEmployee,
+  mapEmployees,
 };
