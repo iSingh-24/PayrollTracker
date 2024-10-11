@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
-const Employee = require("../db/models/Employee");
+const { Employee } = require("../db/models/relationships");
+const { Payroll } = require("../db/models/relationships");
 
 //TODO: Should I include next in these routes
 
@@ -10,6 +11,7 @@ router.get("/", async (req, res, next) => {
       attributes: {
         exclude: ["createdAt", "updatedAt"],
       },
+      include: Payroll,
     });
 
     const allEmployeesArray = employeeData.map(
