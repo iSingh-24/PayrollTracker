@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TotalHoursCalc, TotalHoursFraction } from "../Utils/payrollUtils";
 import "./payrollCalc.css";
+import { getAllEmployees, mapEmployees } from "../Utils/employeeUtils";
 
 /**
  * TODO
@@ -9,6 +10,8 @@ import "./payrollCalc.css";
  * 2) Understand how the date calculator function is working in terms of the 1000 * 60 * 60 and just in general.
  * 3) Have an employee dropdown list 
  * 4) Incorporate current date so that the day the payroll is done can also be noted
+ * 5) It seems like we're using the employee list multiple times, so instead of constantly calling it here, lets work toward creating a global store for any 
+ * component to grab the employees from.
 
  */
 
@@ -17,6 +20,23 @@ const PayrollCalculator = () => {
   const [endTime, setEndTime] = useState("");
   const [totalHoursWorked, setTotalHoursWorked] = useState(0);
   const [payrollHours, setPayrollHours] = useState(0);
+  const [employees, setEmployees] = useState([]);
+
+  //I'm going to make the current employee as an object with the properties I need for simplicity purposes
+  const [currentEmployee, setCurrentEmployee] = useState({
+    fullName: "",
+    id: "",
+  });
+
+  useEffect(() => {
+    const loadEmployees = async () => {
+      const allEmployees = await getAllEmployees();
+
+      setEmployees(allEmployees);
+    };
+
+    loadEmployees();
+  }, []);
 
   const calculateHoursHandler = () => {
     const totalHours = TotalHoursCalc(startTime, endTime);
@@ -35,9 +55,34 @@ const PayrollCalculator = () => {
     setEndTime(value);
   };
 
+  /**
+   * NOTES: in the option handler below, in order to get the employe id we had to go a roundabout way to access it.
+   *
+   * the dataset property will get the custom tags we have in the options tags and the property following that needs to be all lowercase
+   *
+   * Remember you have to use dataset even though in the other function we named the property using, data-employeeid = `${employeeid}`
+   */
+  const onOptionChangeHandler = ({ target }) => {
+    const { value } = target;
+
+    const selectedTagId =
+      target.options[target.selectedIndex].dataset.employeeid;
+    setCurrentEmployee({ fullName: value, id: selectedTagId });
+  };
+
+  const employeeDropDownList = mapEmployees(employees);
+
   return (
     <div className="container">
-      <div>{`Current Employee: `}</div>
+      <div>{`Current Employee: ${currentEmployee.fullName}`}</div>
+      <select onChange={(e) => onOptionChangeHandler(e)}>
+        <option value="">Choose an Employee</option>
+        {employees.length ? (
+          employeeDropDownList
+        ) : (
+          <option>no employees in database currently</option>
+        )}
+      </select>
       <br></br>
       <label>Enter Start Time:</label>
       <input
