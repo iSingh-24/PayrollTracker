@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TotalHoursCalc, TotalHoursFraction } from "../Utils/payrollUtils";
 import "./payrollCalc.css";
 import { getAllEmployees, mapEmployees } from "../Utils/employeeUtils";
+import { daysOfWeek } from "./PayrollUtils";
 
 /**
  * TODO
@@ -74,6 +75,16 @@ const PayrollCalculator = () => {
 
   const employeeDropDownList = mapEmployees(employees);
 
+  const allDays = daysOfWeek.map((day, index) => (
+    <div key={index}>
+      <label>{`${day} Hours Start Time`}</label>
+      <input type="time" lang="en-US" />
+      <br></br>
+      <label>{`${day} Hours End Time`}</label>
+      <input type="time" lang="en-US" />
+    </div>
+  ));
+
   return (
     <div className="container">
       <div>{`Current Employee: ${currentEmployee.fullName}`}</div>
@@ -86,13 +97,23 @@ const PayrollCalculator = () => {
         )}
       </select>
       <br></br>
-      <label>Enter Start Time:</label>
-      <input
-        type="time"
-        value={startTime}
-        onChange={(e) => onStartChangeHandler(e)}
-        lang="en-US"
-      />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          fontSize: "1rem",
+          gap: "0.5rem",
+          border: "2px solid black",
+        }}
+      >
+        {allDays}
+        <input
+          type="time"
+          value={startTime}
+          onChange={(e) => onStartChangeHandler(e)}
+          lang="en-US"
+        />
+      </div>
       <br></br>
       <label>Enter End Time:</label>
       <input
