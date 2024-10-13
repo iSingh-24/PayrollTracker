@@ -12,6 +12,8 @@ import { getAllEmployees, mapEmployees } from "../Utils/employeeUtils";
  * 4) Incorporate current date so that the day the payroll is done can also be noted
  * 5) It seems like we're using the employee list multiple times, so instead of constantly calling it here, lets work toward creating a global store for any 
  * component to grab the employees from.
+ * 6) Grab the employee who we want to add the associated payroll hours with. 
+ * 7) What if we need to adjust the payroll hours that were entered. Find a way to set up routing so that payroll model hours and dates can also be updated. 
 
  */
 
