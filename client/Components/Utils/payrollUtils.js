@@ -1,3 +1,25 @@
+const daysOfWeek = [
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
+];
+
+const printTotalHours = (schedule) => {
+  let totalHoursFrac = 0;
+
+  for (let day in schedule) {
+    const dailyHours = schedule[day].totalFracHours;
+
+    totalHoursFrac += dailyHours;
+  }
+
+  return totalHoursFrac;
+};
+
 const TotalHoursCalc = (startTime, endTime) => {
   const start = new Date(`1940-03-01T${startTime}`);
   const end = new Date(`1940-03-01T${endTime}`);
@@ -22,4 +44,4 @@ const TotalHoursFraction = (hours) => {
   return `${totalHours}.${fractionedMinutes.split(".")[1]}`;
 };
 
-export { TotalHoursCalc, TotalHoursFraction };
+export { TotalHoursCalc, TotalHoursFraction, printTotalHours, daysOfWeek };

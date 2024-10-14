@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TotalHoursCalc, TotalHoursFraction } from "../Utils/payrollUtils";
 import "./payrollCalc.css";
 import { getAllEmployees, mapEmployees } from "../Utils/employeeUtils";
-import { daysOfWeek } from "./PayrollUtils";
+import { daysOfWeek, printTotalHours } from "../Utils/payrollUtils";
 
 /**
  * TODO
@@ -158,6 +158,7 @@ const PayrollCalculator = () => {
       </button>
 
       <button>Submit Hours</button>
+      <div>TOTAL HOURS: {printTotalHours(daysAndHours)}</div>
     </div>
   );
 };
