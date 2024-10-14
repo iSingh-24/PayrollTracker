@@ -2,7 +2,16 @@ import React, { useState, useEffect } from "react";
 import { TotalHoursCalc, TotalHoursFraction } from "../Utils/payrollUtils";
 import "./payrollCalc.css";
 import { getAllEmployees, mapEmployees } from "../Utils/employeeUtils";
-import { daysOfWeek, printTotalHours } from "../Utils/payrollUtils";
+import {
+  daysOfWeek,
+  printTotalHours,
+  hoursToArr,
+  createPayrollInstance,
+  mapMonths,
+  mapPayPeriod,
+  payPeriods,
+  months,
+} from "../Utils/payrollUtils";
 
 /**
  * TODO
@@ -20,6 +29,10 @@ import { daysOfWeek, printTotalHours } from "../Utils/payrollUtils";
 
 const PayrollCalculator = () => {
   const [employees, setEmployees] = useState([]);
+
+  const [currentMonth, setCurrentMonth] = useState("");
+  const [currentWeek, setCurrentWeek] = useState("");
+
   const [daysAndHours, setDaysAndHours] = useState({
     monday: { startTime: 0, endTime: 0, hoursWorked: 0, totalFracHours: 0 },
     tuesday: { startTime: 0, endTime: 0, hoursWorked: 0, totalFracHours: 0 },
@@ -34,6 +47,7 @@ const PayrollCalculator = () => {
   const [currentEmployee, setCurrentEmployee] = useState({
     fullName: "",
     id: "",
+    payrate: "",
   });
 
   useEffect(() => {
@@ -76,7 +90,27 @@ const PayrollCalculator = () => {
 
     const selectedTagId =
       target.options[target.selectedIndex].dataset.employeeid;
-    setCurrentEmployee({ fullName: value, id: selectedTagId });
+
+    const selectedTagPayrate =
+      target.options[target.selectedIndex].dataset.payrate;
+
+    setCurrentEmployee({
+      fullName: value,
+      id: selectedTagId,
+      payrate: selectedTagPayrate,
+    });
+  };
+
+  const onMonthChangeHandler = ({ target }) => {
+    const { value } = target;
+
+    setCurrentMonth(value);
+  };
+
+  const onWeekChangeHandler = ({ target }) => {
+    const { value } = target;
+
+    setCurrentWeek(value);
   };
 
   const onStartHoursHandler = ({ target }, day) => {
@@ -100,20 +134,28 @@ const PayrollCalculator = () => {
   };
 
   const employeeDropDownList = mapEmployees(employees);
+  const monthlyDropDownList = mapMonths(months);
+  const weeklyDropDownList = mapPayPeriod(payPeriods);
 
   const allDays = daysOfWeek.map((day, index) => (
     <div
       key={index}
       style={{ display: "flex", border: "2px solid black", gap: "1rem" }}
     >
-      <label>{`${day} Start Time`}</label>
+      <label>{`${day
+        .slice(0, 1)
+        .toUpperCase()
+        .concat(day.slice(1))} Start Time`}</label>
       <input
         type="time"
         lang="en-US"
         onChange={(e) => onStartHoursHandler(e, day)}
       />
       <br></br>
-      <label>{`${day} End Time`}</label>
+      <label>{`${day
+        .slice(0, 1)
+        .toUpperCase()
+        .concat(day.slice(1))} End Time`}</label>
       <input
         type="time"
         lang="en-US"
@@ -131,7 +173,15 @@ const PayrollCalculator = () => {
   const onPayrollSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("on submit was clicked");
+    const totalPay = printTotalHours(daysAndHours) * currentEmployee.payrate;
+
+    createPayrollInstance(
+      hoursToArr(daysAndHours),
+      currentEmployee.id,
+      currentMonth,
+      currentWeek,
+      totalPay
+    );
   };
 
   return (
@@ -145,6 +195,14 @@ const PayrollCalculator = () => {
           ) : (
             <option>no employees in database currently</option>
           )}
+        </select>
+        <select onChange={(e) => onMonthChangeHandler(e)}>
+          <option value="">Choose an Month</option>
+          {monthlyDropDownList}{" "}
+        </select>
+        <select onChange={(e) => onWeekChangeHandler(e)}>
+          <option value="">Select Pay Period</option>
+          {weeklyDropDownList}{" "}
         </select>
         <br></br>
         <div

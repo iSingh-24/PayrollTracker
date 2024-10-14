@@ -9,7 +9,7 @@ const Payroll = db.define("payroll", {
     primaryKey: true,
   },
   month: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   week: {

@@ -1,3 +1,6 @@
+import axios from "axios";
+import React from "react";
+
 const daysOfWeek = [
   "monday",
   "tuesday",
@@ -7,6 +10,42 @@ const daysOfWeek = [
   "saturday",
   "sunday",
 ];
+
+const payPeriods = ["pp1", "pp2", "pp3", "pp4"];
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const mapMonths = (months) => {
+  const monthsDropDownList = months.map((month, index) => (
+    <option key={index} value={month}>
+      {month}
+    </option>
+  ));
+
+  return monthsDropDownList;
+};
+
+const mapPayPeriod = (payPeriod) => {
+  const payPeriodDropDownList = payPeriod.map((week, index) => (
+    <option key={index} value={week}>
+      {week}
+    </option>
+  ));
+
+  return payPeriodDropDownList;
+};
 
 const printTotalHours = (schedule) => {
   let totalHoursFrac = 0;
@@ -44,4 +83,56 @@ const TotalHoursFraction = (hours) => {
   return `${totalHours}.${fractionedMinutes.split(".")[1]}`;
 };
 
-export { TotalHoursCalc, TotalHoursFraction, printTotalHours, daysOfWeek };
+const createPayrollInstance = async (
+  schedule,
+  employeeId,
+  month,
+  week,
+  totalPay
+) => {
+  //each index will be a number.
+  //monday, tuesday, weds, etc.
+
+  const [monday, tuesday, wednesday, thursday, friday, saturday, sunday] =
+    schedule;
+
+  const payrollInstance = await axios.post("/api/payroll/create", {
+    monday,
+    tuesday,
+    wednesday,
+    thursday,
+    friday,
+    saturday,
+    sunday,
+    employeeId,
+    month,
+    week,
+    totalPay,
+  });
+
+  return payrollInstance;
+};
+
+const hoursToArr = (weeklySchedule) => {
+  const dailyHoursArr = [];
+
+  for (let day in weeklySchedule) {
+    const hours = weeklySchedule[day].totalFracHours;
+    dailyHoursArr.push(hours);
+  }
+
+  return dailyHoursArr;
+};
+
+export {
+  TotalHoursCalc,
+  TotalHoursFraction,
+  printTotalHours,
+  createPayrollInstance,
+  hoursToArr,
+  mapMonths,
+  mapPayPeriod,
+  daysOfWeek,
+  months,
+  payPeriods,
+};
