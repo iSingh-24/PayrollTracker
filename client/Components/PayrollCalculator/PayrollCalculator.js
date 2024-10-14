@@ -63,11 +63,6 @@ const PayrollCalculator = () => {
         }));
       }
     }
-    //   setDaysAndHours((prevState) => ({
-    //     ...prevState,
-    //     [day]: { ...prevState[day], hoursWorked, totalFracHours },
-    //   }));
-    // }
   };
 
   /**
