@@ -55,11 +55,19 @@ const PayrollCalculator = () => {
 
       const totalFracHours = Number(TotalHoursFraction(hoursWorked)).toFixed(2);
 
-      setDaysAndHours((prevState) => ({
-        ...prevState,
-        [day]: { ...prevState[day], hoursWorked, totalFracHours },
-      }));
+      if (!isNaN(totalFracHours)) {
+        console.log("this was hit");
+        setDaysAndHours((prevState) => ({
+          ...prevState,
+          [day]: { ...prevState[day], hoursWorked, totalFracHours },
+        }));
+      }
     }
+    //   setDaysAndHours((prevState) => ({
+    //     ...prevState,
+    //     [day]: { ...prevState[day], hoursWorked, totalFracHours },
+    //   }));
+    // }
   };
 
   /**
