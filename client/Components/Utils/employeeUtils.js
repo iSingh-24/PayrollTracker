@@ -69,6 +69,18 @@ const mapEmployees = (employees) => {
   return employeeDropDownList;
 };
 
+const printEmployeePayroll = (payroll) => {
+  //payroll will be an array of objs
+
+  const payrollData = payroll.map((payroll) => (
+    <p
+      key={payroll.id}
+    >{`Month: ${payroll.month} Pay Period: ${payroll.week}`}</p>
+  ));
+
+  return payrollData;
+};
+
 export {
   getAllEmployees,
   createNewEmployee,
@@ -77,4 +89,5 @@ export {
   fetchSingleEmployee,
   updateEmployee,
   mapEmployees,
+  printEmployeePayroll,
 };

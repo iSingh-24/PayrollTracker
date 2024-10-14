@@ -47,7 +47,10 @@
 
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { fetchSingleEmployee, deleteEmployee } from "../Utils/employeeUtils";
+import {
+  fetchSingleEmployee,
+  printEmployeePayroll,
+} from "../Utils/employeeUtils";
 
 //TODO: Check to see if I need to unmount the component as well
 
@@ -81,6 +84,8 @@ const SingleEmployee = ({ employeeId, deleteEmployee }) => {
       </button>
       <br></br>
       <br></br>
+      <label>Dates Worked</label>
+      <div>{testId ? printEmployeePayroll(currentEmployee.payrolls) : ""}</div>
     </div>
   ) : (
     <div>No Employee credentials here</div>
