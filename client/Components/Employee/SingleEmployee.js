@@ -84,8 +84,14 @@ const SingleEmployee = ({ employeeId, deleteEmployee }) => {
       </button>
       <br></br>
       <br></br>
-      <label>Dates Worked</label>
-      <div>{testId ? printEmployeePayroll(currentEmployee.payrolls) : ""}</div>
+      {testId ? (
+        <div>
+          <label>Dates Worked</label>
+          {printEmployeePayroll(currentEmployee.payrolls)}
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   ) : (
     <div>No Employee credentials here</div>
