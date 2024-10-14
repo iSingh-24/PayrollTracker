@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 /**
  * Function that will get all employees from Db
  */
@@ -73,9 +74,9 @@ const printEmployeePayroll = (payroll) => {
   //payroll will be an array of objs
 
   const payrollData = payroll.map((payroll) => (
-    <p
-      key={payroll.id}
-    >{`Month: ${payroll.month} Pay Period: ${payroll.week}`}</p>
+    <Link to={`/employees/payroll/${payroll.id}`} key={payroll.id}>
+      <p>{`Month: ${payroll.month} Pay Period: ${payroll.week}`}</p>
+    </Link>
   ));
 
   return payrollData;

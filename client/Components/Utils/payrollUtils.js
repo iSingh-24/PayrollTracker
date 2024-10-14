@@ -124,6 +124,24 @@ const hoursToArr = (weeklySchedule) => {
   return dailyHoursArr;
 };
 
+const getSinglePayroll = async (payrollId) => {
+  const singlePayroll = await axios.get(`/api/payroll/${payrollId}`);
+
+  return singlePayroll;
+};
+
+const printSinglePayroll = (payroll) => {
+  //TODO: grab only the data you really need and ignore the rest of the fields you don't
+  //TODO: change the createdAt date to a more readable and understandable date format
+  let payrollArr = Object.keys(payroll);
+
+  const payrollData = payrollArr.map((key, index) => {
+    return <p key={index}>{`${key}: ${payroll[key]}`}</p>;
+  });
+
+  return payrollData;
+};
+
 export {
   TotalHoursCalc,
   TotalHoursFraction,
@@ -132,6 +150,8 @@ export {
   hoursToArr,
   mapMonths,
   mapPayPeriod,
+  getSinglePayroll,
+  printSinglePayroll,
   daysOfWeek,
   months,
   payPeriods,

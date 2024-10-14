@@ -44,4 +44,15 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
+router.get("/:id", async (req, res, next) => {
+  try {
+    const { id: payrollId } = req.params;
+    const singlePayroll = await Payroll.findByPk(payrollId);
+
+    res.send(singlePayroll.dataValues);
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
