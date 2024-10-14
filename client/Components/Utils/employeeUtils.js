@@ -22,10 +22,7 @@ const createNewEmployee = async (newEmployee) => {
 };
 
 const deleteEmployee = async (employeeId) => {
-  console.log("This path was hit");
   const employeeDeleted = await axios.delete(`/api/employees/${employeeId}`);
-
-  console.log("employee was deleted");
 
   return employeeDeleted;
 };

@@ -51,12 +51,12 @@ const printTotalHours = (schedule) => {
   let totalHoursFrac = 0;
 
   for (let day in schedule) {
-    const dailyHours = schedule[day].totalFracHours;
+    const dailyHours = Number(schedule[day].totalFracHours);
 
     totalHoursFrac += dailyHours;
   }
 
-  return Number(totalHoursFrac).toFixed(2);
+  return totalHoursFrac.toFixed(2);
 };
 
 const TotalHoursCalc = (startTime, endTime) => {
