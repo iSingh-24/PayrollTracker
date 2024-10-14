@@ -16,6 +16,34 @@ const Payroll = db.define("payroll", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  monday: {
+    type: DataTypes.FLOAT,
+    defaultValue: 0.0,
+  },
+  tuesday: {
+    type: DataTypes.FLOAT,
+    defaultValue: 0.0,
+  },
+  wednesday: {
+    type: DataTypes.FLOAT,
+    defaultValue: 0.0,
+  },
+  thursday: {
+    type: DataTypes.FLOAT,
+    defaultValue: 0.0,
+  },
+  friday: {
+    type: DataTypes.FLOAT,
+    defaultValue: 0.0,
+  },
+  saturday: {
+    type: DataTypes.FLOAT,
+    defaultValue: 0.0,
+  },
+  sunday: {
+    type: DataTypes.FLOAT,
+    defaultValue: 0.0,
+  },
   totalPay: {
     type: DataTypes.FLOAT,
     allowNull: false,

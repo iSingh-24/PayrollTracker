@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TotalHoursCalc, TotalHoursFraction } from "../Utils/payrollUtils";
 import "./payrollCalc.css";
 import { getAllEmployees, mapEmployees } from "../Utils/employeeUtils";
+import { daysOfWeek } from "./PayrollUtils";
 
 /**
  * TODO
@@ -18,11 +19,16 @@ import { getAllEmployees, mapEmployees } from "../Utils/employeeUtils";
  */
 
 const PayrollCalculator = () => {
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
-  const [totalHoursWorked, setTotalHoursWorked] = useState(0);
-  const [payrollHours, setPayrollHours] = useState(0);
   const [employees, setEmployees] = useState([]);
+  const [daysAndHours, setDaysAndHours] = useState({
+    monday: { startTime: 0, endTime: 0, hoursWorked: 0, totalFracHours: 0 },
+    tuesday: { startTime: 0, endTime: 0, hoursWorked: 0, totalFracHours: 0 },
+    wednesday: { startTime: 0, endTime: 0, hoursWorked: 0, totalFracHours: 0 },
+    thursday: { startTime: 0, endTime: 0, hoursWorked: 0, totalFracHours: 0 },
+    friday: { startTime: 0, endTime: 0, hoursWorked: 0, totalFracHours: 0 },
+    saturday: { startTime: 0, endTime: 0, hoursWorked: 0, totalFracHours: 0 },
+    sunday: { startTime: 0, endTime: 0, hoursWorked: 0, totalFracHours: 0 },
+  });
 
   //I'm going to make the current employee as an object with the properties I need for simplicity purposes
   const [currentEmployee, setCurrentEmployee] = useState({
@@ -41,20 +47,22 @@ const PayrollCalculator = () => {
   }, []);
 
   const calculateHoursHandler = () => {
-    const totalHours = TotalHoursCalc(startTime, endTime);
-    setTotalHoursWorked(totalHours);
+    for (let day of daysOfWeek) {
+      const startTime = daysAndHours[day]["startTime"];
+      const endTime = daysAndHours[day]["endTime"];
 
-    setPayrollHours(Number(TotalHoursFraction(totalHours)).toFixed(2)); //we're going to pass in total hours because the state is updating asynchronously
-  };
+      const hoursWorked = TotalHoursCalc(startTime, endTime);
 
-  const onStartChangeHandler = ({ target }) => {
-    const { value } = target;
-    setStartTime(value);
-  };
+      const totalFracHours = Number(TotalHoursFraction(hoursWorked)).toFixed(2);
 
-  const onEndChangeHandler = ({ target }) => {
-    const { value } = target;
-    setEndTime(value);
+      if (!isNaN(totalFracHours)) {
+        console.log("this was hit");
+        setDaysAndHours((prevState) => ({
+          ...prevState,
+          [day]: { ...prevState[day], hoursWorked, totalFracHours },
+        }));
+      }
+    }
   };
 
   /**
@@ -72,7 +80,54 @@ const PayrollCalculator = () => {
     setCurrentEmployee({ fullName: value, id: selectedTagId });
   };
 
+  const onStartHoursHandler = ({ target }, day) => {
+    const startTime = target.value;
+
+    //this will ensure we don't overwrite the whole state object because it can be tricky when using nested objects or objects in general
+    setDaysAndHours((prevState) => ({
+      ...prevState,
+      [day]: { ...prevState[day], startTime },
+    }));
+  };
+
+  const onEndHoursHandler = ({ target }, day) => {
+    const endTime = target.value;
+
+    //this will ensure we don't overwrite the whole state object because it can be tricky when using nested objects or objects in general
+    setDaysAndHours((prevState) => ({
+      ...prevState,
+      [day]: { ...prevState[day], endTime },
+    }));
+  };
+
   const employeeDropDownList = mapEmployees(employees);
+
+  const allDays = daysOfWeek.map((day, index) => (
+    <div
+      key={index}
+      style={{ display: "flex", border: "2px solid black", gap: "1rem" }}
+    >
+      <label>{`${day} Start Time`}</label>
+      <input
+        type="time"
+        lang="en-US"
+        onChange={(e) => onStartHoursHandler(e, day)}
+      />
+      <br></br>
+      <label>{`${day} End Time`}</label>
+      <input
+        type="time"
+        lang="en-US"
+        onChange={(e) => onEndHoursHandler(e, day)}
+      />
+      <br></br>
+      <label>Total Hours Worked:</label>
+
+      {daysAndHours[day] ? daysAndHours[day].hoursWorked : 0}
+      <label>Total Hours Fraction:</label>
+      <p> {daysAndHours[day] ? daysAndHours[day].totalFracHours : 0}</p>
+    </div>
+  ));
 
   return (
     <div className="container">
@@ -86,56 +141,22 @@ const PayrollCalculator = () => {
         )}
       </select>
       <br></br>
-      <label>Enter Start Time:</label>
-      <input
-        type="time"
-        value={startTime}
-        onChange={(e) => onStartChangeHandler(e)}
-        lang="en-US"
-      />
-      <br></br>
-      <label>Enter End Time:</label>
-      <input
-        type="time"
-        value={endTime}
-        onChange={(e) => onEndChangeHandler(e)}
-        lang="en-US"
-      />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          fontSize: "1.5rem",
+          gap: "0.5rem",
+        }}
+      >
+        {allDays}
+      </div>
+
       <br></br>
       <button type="button" onClick={() => calculateHoursHandler()}>
         Calculate Hours
       </button>
-      <div
-        style={{
-          display: "flex",
-          padding: "10px",
-        }}
-      >
-        <h3 style={{ fontSize: "1.5rem", paddingRight: "1.5rem" }}>
-          Total Hours Worked
-        </h3>
-        <input
-          type="text"
-          value={totalHoursWorked}
-          style={{ fontSize: "1.5rem" }}
-          disabled
-        />
-      </div>
-      <div
-        style={{
-          display: "flex",
-        }}
-      >
-        <h3 style={{ fontSize: "1.5rem", paddingRight: "1.5rem" }}>
-          Total Hours Fraction
-        </h3>
-        <input
-          type="text"
-          value={payrollHours}
-          style={{ fontSize: "1.5rem" }}
-          disabled
-        />
-      </div>
+
       <button>Submit Hours</button>
     </div>
   );
