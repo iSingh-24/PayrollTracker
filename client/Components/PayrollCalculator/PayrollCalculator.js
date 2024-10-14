@@ -25,6 +25,7 @@ import {
  * 6) Grab the employee who we want to add the associated payroll hours with.
  * 7) What if we need to adjust the payroll hours that were entered. Find a way to set up routing so that payroll model hours and dates can also be updated.
  * 8) *** Currently if we go into the next day, there is an issue where the hours become negative, fix that.
+ * 9) Double check and see if any more necessary constraints need to be added.
  */
 
 const PayrollCalculator = () => {
