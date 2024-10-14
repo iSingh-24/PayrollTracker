@@ -65,6 +65,7 @@ const mapEmployees = (employees) => {
       key={employee.id}
       value={`${employee.firstName} ${employee.lastName}`}
       data-employeeid={`${employee.id}`}
+      data-payrate={employee.payrate}
     >{`${employee.firstName} ${employee.lastName}`}</option>
   ));
 
