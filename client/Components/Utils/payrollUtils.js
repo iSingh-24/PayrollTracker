@@ -17,7 +17,7 @@ const printTotalHours = (schedule) => {
     totalHoursFrac += dailyHours;
   }
 
-  return totalHoursFrac;
+  return Number(totalHoursFrac).toFixed(2);
 };
 
 const TotalHoursCalc = (startTime, endTime) => {
