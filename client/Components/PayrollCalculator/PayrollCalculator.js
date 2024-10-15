@@ -146,7 +146,13 @@ const PayrollCalculator = () => {
   const allDays = daysOfWeek.map((day, index) => (
     <div
       key={index}
-      style={{ display: "flex", border: "2px solid black", gap: "1rem" }}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        border: "2px solid black",
+        gap: "0.5rem",
+      }}
     >
       <label>{`${day
         .slice(0, 1)
@@ -215,7 +221,8 @@ const PayrollCalculator = () => {
           style={{
             display: "flex",
             flexDirection: "column",
-            fontSize: "1.5rem",
+            justifyContent: "center",
+            fontSize: "1.0rem",
             gap: "0.5rem",
           }}
         >
