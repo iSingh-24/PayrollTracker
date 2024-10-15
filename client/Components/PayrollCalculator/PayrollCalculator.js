@@ -66,9 +66,14 @@ const PayrollCalculator = () => {
       const startTime = daysAndHours[day]["startTime"];
       const endTime = daysAndHours[day]["endTime"];
 
-      const hoursWorked = TotalHoursCalc(startTime, endTime);
+      let hoursAndMinutes = TotalHoursCalc(startTime, endTime);
 
-      const totalFracHours = Number(TotalHoursFraction(hoursWorked)).toFixed(2);
+      const hoursWorked =
+        hoursAndMinutes[0] === "-" ? hoursAndMinutes.slice(1) : hoursAndMinutes;
+
+      const totalFracHours = Math.abs(
+        Number(TotalHoursFraction(hoursWorked)).toFixed(2)
+      );
 
       if (!isNaN(totalFracHours)) {
         setDaysAndHours((prevState) => ({
@@ -163,7 +168,7 @@ const PayrollCalculator = () => {
         onChange={(e) => onEndHoursHandler(e, day)}
       />
       <br></br>
-      <label>Total Hours Worked:</label>
+      <label> Hours/Minutes Worked:</label>
 
       {daysAndHours[day] ? daysAndHours[day].hoursWorked : 0}
       <label>Total Hours Fraction:</label>
