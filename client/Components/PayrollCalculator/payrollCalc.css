@@ -3,4 +3,11 @@
   display: inline-block;
   padding: 10px;
   font-size: 2rem;
+  background-color: rgb(110, 163, 189);
+}
+
+select {
+  font-size: 1.5rem;
+  margin: 15px;
+  background-color: lightgray;
 }

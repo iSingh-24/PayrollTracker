@@ -26,6 +26,7 @@ import {
  * 7) What if we need to adjust the payroll hours that were entered. Find a way to set up routing so that payroll model hours and dates can also be updated.
  * 8) *** Currently if we go into the next day, there is an issue where the hours become negative, fix that.
  * 9) Double check and see if any more necessary constraints need to be added.
+ * 10) Add calculations for overtime pay
  */
 
 const PayrollCalculator = () => {
@@ -153,6 +154,7 @@ const PayrollCalculator = () => {
         border: "2px solid black",
         gap: "0.5rem",
         width: "100%",
+        backgroundColor: "white",
       }}
     >
       <label style={{ flex: "1" }}>{`${day
@@ -236,7 +238,11 @@ const PayrollCalculator = () => {
         </div>
 
         <br></br>
-        <button type="button" onClick={() => calculateHoursHandler()}>
+        <button
+          type="button"
+          style={{ fontSize: "1.5rem", backgroundColor: "lightGray" }}
+          onClick={() => calculateHoursHandler()}
+        >
           Calculate Hours
         </button>
 
