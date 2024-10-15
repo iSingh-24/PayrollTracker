@@ -148,37 +148,43 @@ const PayrollCalculator = () => {
       key={index}
       style={{
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "space-between",
         alignItems: "center",
         border: "2px solid black",
         gap: "0.5rem",
+        width: "100%",
       }}
     >
-      <label>{`${day
+      <label style={{ flex: "1" }}>{`${day
         .slice(0, 1)
         .toUpperCase()
         .concat(day.slice(1))} Start Time`}</label>
       <input
         type="time"
         lang="en-US"
+        style={{ backgroundColor: "lightGray", flex: "1" }}
         onChange={(e) => onStartHoursHandler(e, day)}
       />
       <br></br>
-      <label>{`${day
+      <label style={{ flex: "1" }}>{`${day
         .slice(0, 1)
         .toUpperCase()
         .concat(day.slice(1))} End Time`}</label>
       <input
         type="time"
         lang="en-US"
+        style={{ backgroundColor: "lightGray", flex: "1" }}
         onChange={(e) => onEndHoursHandler(e, day)}
       />
       <br></br>
-      <label> Hours/Minutes Worked:</label>
+      <label style={{ flex: "1" }}> Hours/Minutes Worked:</label>
 
       {daysAndHours[day] ? daysAndHours[day].hoursWorked : 0}
-      <label>Total Hours Fraction:</label>
-      <p> {daysAndHours[day] ? daysAndHours[day].totalFracHours : 0}</p>
+      <label style={{ flex: "1" }}>Total Hours Fraction:</label>
+      <p style={{ flex: "1" }}>
+        {" "}
+        {daysAndHours[day] ? daysAndHours[day].totalFracHours : 0}
+      </p>
     </div>
   ));
 
