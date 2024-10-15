@@ -11,7 +11,7 @@ const Header = () => {
         <Link to="/employees">Employee List</Link>
         <Link to="/settings">Settings</Link>
       </div>
-      <h1>Payroll Calculator</h1>
+      {/* <h1>Payroll Calculator</h1> */}
     </div>
   );
 };

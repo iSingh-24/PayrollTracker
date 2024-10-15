@@ -7,6 +7,7 @@ import {
 
 import { Link } from "react-router-dom";
 import SingleEmployee from "./SingleEmployee";
+import "./employee.css";
 
 /**
  * TODO: Bring in the single employee component to properly display all the employees as a list
@@ -49,7 +50,7 @@ const EmployeeList = () => {
   ));
 
   return (
-    <div>
+    <div className="container">
       {allEmployees.length
         ? allEmployees
         : "There are no employees in the database currently"}
