@@ -193,7 +193,14 @@ const PayrollCalculator = () => {
   const onPayrollSubmit = async (e) => {
     e.preventDefault();
 
-    const totalPay = printTotalHours(daysAndHours) * currentEmployee.payrate;
+    // const totalHours = printTotalHours(daysAndHours); //this will give you the total hours
+    const totalHours = 45;
+    const remainderHours = totalHours - 40;
+
+    const totalPay = remainderHours
+      ? (totalHours - remainderHours) * currentEmployee.payrate +
+        remainderHours * (currentEmployee.payrate * 1.5)
+      : totalHours * currentEmployee.payrate;
 
     createPayrollInstance(
       hoursToArr(daysAndHours),
