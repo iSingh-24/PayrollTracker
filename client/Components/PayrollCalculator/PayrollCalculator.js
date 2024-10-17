@@ -193,8 +193,8 @@ const PayrollCalculator = () => {
   const onPayrollSubmit = async (e) => {
     e.preventDefault();
 
-    // const totalHours = printTotalHours(daysAndHours); //this will give you the total hours
-    const totalHours = 45;
+    const totalHours = printTotalHours(daysAndHours); //this will give you the total hours
+
     const remainderHours = totalHours - 40;
 
     const totalPay = remainderHours
