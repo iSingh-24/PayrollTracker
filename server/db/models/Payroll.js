@@ -11,10 +11,16 @@ const Payroll = db.define("payroll", {
   month: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   week: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   monday: {
     type: DataTypes.FLOAT,

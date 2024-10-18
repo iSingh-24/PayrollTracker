@@ -27,6 +27,8 @@ import {
  * 8) *** Currently if we go into the next day, there is an issue where the hours become negative, fix that.
  * 9) Double check and see if any more necessary constraints need to be added.
  * 10) Add calculations for overtime pay
+ * 11) Double check if dropdowns are resetting properly after employee data is submitted. Also check and see if overtime pay and other calculations are still working properly
+ * since we changed the default time from 0 to "".
  */
 
 const PayrollCalculator = () => {
@@ -36,13 +38,18 @@ const PayrollCalculator = () => {
   const [currentWeek, setCurrentWeek] = useState("");
 
   const [daysAndHours, setDaysAndHours] = useState({
-    monday: { startTime: 0, endTime: 0, hoursWorked: 0, totalFracHours: 0 },
-    tuesday: { startTime: 0, endTime: 0, hoursWorked: 0, totalFracHours: 0 },
-    wednesday: { startTime: 0, endTime: 0, hoursWorked: 0, totalFracHours: 0 },
-    thursday: { startTime: 0, endTime: 0, hoursWorked: 0, totalFracHours: 0 },
-    friday: { startTime: 0, endTime: 0, hoursWorked: 0, totalFracHours: 0 },
-    saturday: { startTime: 0, endTime: 0, hoursWorked: 0, totalFracHours: 0 },
-    sunday: { startTime: 0, endTime: 0, hoursWorked: 0, totalFracHours: 0 },
+    monday: { startTime: "", endTime: "", hoursWorked: 0, totalFracHours: 0 },
+    tuesday: { startTime: "", endTime: "", hoursWorked: 0, totalFracHours: 0 },
+    wednesday: {
+      startTime: "",
+      endTime: "",
+      hoursWorked: 0,
+      totalFracHours: 0,
+    },
+    thursday: { startTime: "", endTime: "", hoursWorked: 0, totalFracHours: 0 },
+    friday: { startTime: "", endTime: "", hoursWorked: 0, totalFracHours: 0 },
+    saturday: { startTime: "", endTime: "", hoursWorked: 0, totalFracHours: 0 },
+    sunday: { startTime: "", endTime: "", hoursWorked: 0, totalFracHours: 0 },
   });
 
   //I'm going to make the current employee as an object with the properties I need for simplicity purposes
@@ -166,6 +173,7 @@ const PayrollCalculator = () => {
         lang="en-US"
         style={{ backgroundColor: "lightGray", flex: "1" }}
         onChange={(e) => onStartHoursHandler(e, day)}
+        value={daysAndHours[day].startTime}
       />
       <br></br>
       <label style={{ flex: "1" }}>{`${day
@@ -177,6 +185,7 @@ const PayrollCalculator = () => {
         lang="en-US"
         style={{ backgroundColor: "lightGray", flex: "1" }}
         onChange={(e) => onEndHoursHandler(e, day)}
+        value={daysAndHours[day].endTime}
       />
       <br></br>
       <label style={{ flex: "1" }}> Hours/Minutes Worked:</label>
@@ -209,6 +218,42 @@ const PayrollCalculator = () => {
       currentWeek,
       totalPay
     );
+
+    setDaysAndHours({
+      monday: { startTime: "", endTime: "", hoursWorked: 0, totalFracHours: 0 },
+      tuesday: {
+        startTime: "",
+        endTime: "",
+        hoursWorked: 0,
+        totalFracHours: 0,
+      },
+      wednesday: {
+        startTime: "",
+        endTime: "",
+        hoursWorked: 0,
+        totalFracHours: 0,
+      },
+      thursday: {
+        startTime: "",
+        endTime: "",
+        hoursWorked: 0,
+        totalFracHours: 0,
+      },
+      friday: { startTime: "", endTime: "", hoursWorked: 0, totalFracHours: 0 },
+      saturday: {
+        startTime: "",
+        endTime: "",
+        hoursWorked: 0,
+        totalFracHours: 0,
+      },
+      sunday: { startTime: "", endTime: "", hoursWorked: 0, totalFracHours: 0 },
+    });
+
+    setCurrentEmployee({
+      fullName: "",
+      id: "",
+      payrate: "",
+    });
   };
 
   return (
