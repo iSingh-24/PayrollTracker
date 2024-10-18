@@ -18,15 +18,10 @@ import {
  *
  * 1) Instead of input tags used to track the time, figure out how to use flatpickr library or timepicker.js
  * 2) Understand how the date calculator function is working in terms of the 1000 * 60 * 60 and just in general.
- * 3) Have an employee dropdown list
- * 4) Incorporate current date so that the day the payroll is done can also be noted
  * 5) It seems like we're using the employee list multiple times, so instead of constantly calling it here, lets work toward creating a global store for any
  * component to grab the employees from.
- * 6) Grab the employee who we want to add the associated payroll hours with.
  * 7) What if we need to adjust the payroll hours that were entered. Find a way to set up routing so that payroll model hours and dates can also be updated.
- * 8) *** Currently if we go into the next day, there is an issue where the hours become negative, fix that.
  * 9) Double check and see if any more necessary constraints need to be added.
- * 10) Add calculations for overtime pay
  * 11) Double check if dropdowns are resetting properly after employee data is submitted. Also check and see if overtime pay and other calculations are still working properly
  * since we changed the default time from 0 to "".
  */
@@ -36,6 +31,11 @@ const PayrollCalculator = () => {
 
   const [currentMonth, setCurrentMonth] = useState("");
   const [currentWeek, setCurrentWeek] = useState("");
+  const [selectedOption, setSelectedOption] = useState({
+    employee: "",
+    month: "",
+    week: "",
+  });
 
   const [daysAndHours, setDaysAndHours] = useState({
     monday: { startTime: "", endTime: "", hoursWorked: 0, totalFracHours: 0 },
@@ -113,6 +113,8 @@ const PayrollCalculator = () => {
       id: selectedTagId,
       payrate: selectedTagPayrate,
     });
+
+    setSelectedOption(value);
   };
 
   const onMonthChangeHandler = ({ target }) => {
@@ -254,13 +256,18 @@ const PayrollCalculator = () => {
       id: "",
       payrate: "",
     });
+
+    setSelectedOption({ employee: "", month: "", week: "" });
   };
 
   return (
     <div className="container">
       <form type="submit" onSubmit={(e) => onPayrollSubmit(e)}>
         <div>{`Current Employee: ${currentEmployee.fullName}`}</div>
-        <select onChange={(e) => onOptionChangeHandler(e)}>
+        <select
+          onChange={(e) => onOptionChangeHandler(e)}
+          value={selectedOption.employee}
+        >
           <option value="">Choose an Employee</option>
           {employees.length ? (
             employeeDropDownList
@@ -268,11 +275,17 @@ const PayrollCalculator = () => {
             <option>no employees in database currently</option>
           )}
         </select>
-        <select onChange={(e) => onMonthChangeHandler(e)}>
+        <select
+          onChange={(e) => onMonthChangeHandler(e)}
+          value={selectedOption.month}
+        >
           <option value="">Choose an Month</option>
           {monthlyDropDownList}{" "}
         </select>
-        <select onChange={(e) => onWeekChangeHandler(e)}>
+        <select
+          onChange={(e) => onWeekChangeHandler(e)}
+          value={selectedOption.week}
+        >
           <option value="">Select Pay Period</option>
           {weeklyDropDownList}{" "}
         </select>
