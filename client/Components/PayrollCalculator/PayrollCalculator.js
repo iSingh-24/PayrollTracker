@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { TotalHoursCalc, TotalHoursFraction } from "../Utils/payrollUtils";
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./payrollCalc.css";
 import { getAllEmployees, mapEmployees } from "../Utils/employeeUtils";
 import {
@@ -258,6 +260,18 @@ const PayrollCalculator = () => {
     });
 
     setSelectedOption({ employee: "", month: "", week: "" });
+
+    toast.success("Employee Payroll was successfully created", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   };
 
   return (
@@ -310,6 +324,20 @@ const PayrollCalculator = () => {
         >
           Calculate Hours
         </button>
+
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition={Bounce}
+        />
 
         {currentEmployee.id ? <button>Submit Hours</button> : ""}
         <div>TOTAL HOURS FOR THE WEEK: {printTotalHours(daysAndHours)}</div>
