@@ -1,0 +1,8 @@
+.home-container {
+  background-image: url("../../../public/assets/officePic-removebg-preview.png");
+  height: 100vh;
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+}

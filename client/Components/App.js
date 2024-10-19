@@ -9,10 +9,11 @@ import CreateEmployeeForm from "./Employee/CreateEmployeeForm";
 import SingleEmployee from "./Employee/SingleEmployee";
 import UpdateEmployeeForm from "./Employee/UpdateEmployeeForm";
 import SinglePayroll from "./PayrollCalculator/SinglePayroll";
+import "./app.css";
 
 const App = () => {
   return (
-    <div>
+    <div className="app-container">
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
