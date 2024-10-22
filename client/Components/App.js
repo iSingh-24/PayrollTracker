@@ -9,6 +9,7 @@ import CreateEmployeeForm from "./Employee/CreateEmployeeForm";
 import SingleEmployee from "./Employee/SingleEmployee";
 import UpdateEmployeeForm from "./Employee/UpdateEmployeeForm";
 import SinglePayroll from "./PayrollCalculator/SinglePayroll";
+import UpdatePayrollForm from "./PayrollCalculator/UpdatePayrollForm";
 import "./app.css";
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
           element={<UpdateEmployeeForm />}
         />
         <Route path={`/employees/payroll/:id`} element={<SinglePayroll />} />
+        <Route path={`/payroll/update/:id`} element={<UpdatePayrollForm />} />
       </Routes>
     </div>
   );

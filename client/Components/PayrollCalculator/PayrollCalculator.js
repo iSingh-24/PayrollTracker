@@ -208,7 +208,7 @@ const PayrollCalculator = () => {
 
     const totalHours = printTotalHours(daysAndHours); //this will give you the total hours
 
-    const remainderHours = totalHours - 40;
+    const remainderHours = totalHours > 40 ? totalHours - 40 : 0;
 
     const totalPay = remainderHours
       ? (totalHours - remainderHours) * currentEmployee.payrate +
