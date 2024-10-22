@@ -55,4 +55,43 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.put("/update/:id", async (req, res, next) => {
+  try {
+    console.log(req.body, "here is req body");
+
+    const {
+      id,
+      month,
+      week,
+      monday,
+      tuesday,
+      wednesday,
+      thursday,
+      friday,
+      saturday,
+      sunday,
+    } = req.body;
+
+    const payrollToUpdate = await Payroll.findByPk(id);
+
+    const updatedPayroll = await payrollToUpdate.update({
+      month,
+      week,
+      monday,
+      tuesday,
+      wednesday,
+      thursday,
+      friday,
+      saturday,
+      sunday,
+    });
+
+    console.log(updatedPayroll, "here is updatedPayroll");
+
+    res.send(updatedPayroll.dataValues);
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
