@@ -142,6 +142,45 @@ const printSinglePayroll = (payroll) => {
   return payrollData;
 };
 
+const updateSinglePayroll = async (payroll) => {
+  const totalHours = 0;
+
+  for (let day in daysOfWeek) {
+    totalHours += payroll[day];
+  }
+
+  // const updatedHours =
+  const {
+    id,
+    month,
+    week,
+    monday,
+    tuesday,
+    wednesday,
+    thursday,
+    friday,
+    saturday,
+    sunday,
+    totalPay,
+  } = payroll;
+
+  const updatedPayroll = await axios.put(`/api/payroll/update/${id}`, {
+    id,
+    month,
+    week,
+    monday,
+    tuesday,
+    wednesday,
+    thursday,
+    friday,
+    saturday,
+    sunday,
+    totalPay,
+  });
+
+  return updatedPayroll;
+};
+
 export {
   TotalHoursCalc,
   TotalHoursFraction,
@@ -152,6 +191,7 @@ export {
   mapPayPeriod,
   getSinglePayroll,
   printSinglePayroll,
+  updateSinglePayroll,
   daysOfWeek,
   months,
   payPeriods,
