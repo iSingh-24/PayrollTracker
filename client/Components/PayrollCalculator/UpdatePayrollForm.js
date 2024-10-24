@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getSinglePayroll, updateSinglePayroll } from "../Utils/payrollUtils";
+import { fetchSingleEmployee } from "../Utils/employeeUtils";
 
 //TODO: Get rid of the updated at, created at employeeId and id fields
 //TODO: Figure out how to get the rate of the current employee in an easier manner so that we can calculate and update the new toal pay
@@ -8,24 +9,21 @@ import { getSinglePayroll, updateSinglePayroll } from "../Utils/payrollUtils";
 
 const UpdatePayrollForm = () => {
   const [currentPayroll, setCurrentPayroll] = useState({});
-  //   const [payPeriodObj, setPayPeriodObj] = useState({
-  //     month: "",
-  //     week: "",
-  //     monday: "",
-  //     tuesday: "",
-  //     wednesday: "",
-  //     thursday: "",
-  //     friday: "",
-  //     saturday: "",
-  //     sunday: "",
-  //   });
+  const [payrate, setPayrate] = useState(0);
 
   const { id: paramId } = useParams();
 
   useEffect(() => {
     const loadPayroll = async () => {
       const payroll = await getSinglePayroll(paramId);
-      console.log(payroll.data, "here is payroll data");
+      const { data: singleEmployeeData } = await fetchSingleEmployee(
+        payroll.data.employeeId
+      );
+
+      const { payrate } = singleEmployeeData;
+
+      setPayrate(payrate);
+
       const {
         id,
         month,
@@ -68,7 +66,10 @@ const UpdatePayrollForm = () => {
   const onUpdateSubmit = async (e) => {
     e.preventDefault();
 
-    const { data: updatedPayroll } = await updateSinglePayroll(currentPayroll);
+    const { data: updatedPayroll } = await updateSinglePayroll(
+      currentPayroll,
+      payrate
+    );
 
     const payroll = await getSinglePayroll(paramId);
 

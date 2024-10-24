@@ -57,8 +57,6 @@ router.get("/:id", async (req, res, next) => {
 
 router.put("/update/:id", async (req, res, next) => {
   try {
-    console.log(req.body, "here is req body");
-
     const {
       id,
       month,
@@ -70,6 +68,7 @@ router.put("/update/:id", async (req, res, next) => {
       friday,
       saturday,
       sunday,
+      totalPay,
     } = req.body;
 
     const payrollToUpdate = await Payroll.findByPk(id);
@@ -84,9 +83,8 @@ router.put("/update/:id", async (req, res, next) => {
       friday,
       saturday,
       sunday,
+      totalPay,
     });
-
-    console.log(updatedPayroll, "here is updatedPayroll");
 
     res.send(updatedPayroll.dataValues);
   } catch (err) {

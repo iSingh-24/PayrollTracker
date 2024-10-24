@@ -142,14 +142,19 @@ const printSinglePayroll = (payroll) => {
   return payrollData;
 };
 
-const updateSinglePayroll = async (payroll) => {
-  const totalHours = 0;
+const updateSinglePayroll = async (payroll, payrate) => {
+  let totalHours = 0;
 
-  for (let day in daysOfWeek) {
-    totalHours += payroll[day];
+  for (let day of daysOfWeek) {
+    totalHours += Number(payroll[day]);
   }
 
-  // const updatedHours =
+  const remainderHours = totalHours > 40 ? totalHours - 40 : 0;
+
+  const totalPay = remainderHours
+    ? (totalHours - remainderHours) * payrate + remainderHours * (payrate * 1.5)
+    : totalHours * payrate;
+
   const {
     id,
     month,
@@ -161,7 +166,6 @@ const updateSinglePayroll = async (payroll) => {
     friday,
     saturday,
     sunday,
-    totalPay,
   } = payroll;
 
   const updatedPayroll = await axios.put(`/api/payroll/update/${id}`, {
