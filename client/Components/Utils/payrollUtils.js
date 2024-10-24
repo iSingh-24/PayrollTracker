@@ -185,6 +185,12 @@ const updateSinglePayroll = async (payroll, payrate) => {
   return updatedPayroll;
 };
 
+const deletePayroll = async (payrollId) => {
+  const deletedPayroll = await axios.delete(`/api/payroll/delete/${payrollId}`);
+
+  return deletedPayroll;
+};
+
 export {
   TotalHoursCalc,
   TotalHoursFraction,
@@ -196,6 +202,7 @@ export {
   getSinglePayroll,
   printSinglePayroll,
   updateSinglePayroll,
+  deletePayroll,
   daysOfWeek,
   months,
   payPeriods,

@@ -55,6 +55,22 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.delete("/delete/:id", async (req, res, next) => {
+  try {
+    console.log(req.params);
+
+    const { id } = req.params;
+
+    //if you want to use the payroll object in the future you can do a findByPk for payroll and save it into a variable before destroying it instead
+
+    const payrollToDelete = await Payroll.destroy({ where: { id } });
+
+    res.send("payroll was deleted");
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.put("/update/:id", async (req, res, next) => {
   try {
     const {

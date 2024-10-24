@@ -117,10 +117,14 @@ const UpdatePayrollForm = () => {
 
   return (
     <div>
-      <form onSubmit={(e) => onUpdateSubmit(e)}>
-        {payrollKeys.length ? payrollFields : ""}
-        <button type="submit">Update Payroll</button>
-      </form>
+      {currentPayroll ? (
+        <form onSubmit={(e) => onUpdateSubmit(e)}>
+          {payrollKeys.length ? payrollFields : ""}
+          <button type="submit">Update Payroll</button>
+        </form>
+      ) : (
+        "No current Payroll with this Id"
+      )}
     </div>
   );
 };
