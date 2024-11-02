@@ -63,6 +63,10 @@ const TotalHoursCalc = (startTime, endTime) => {
   const start = new Date(`1940-03-01T${startTime}`);
   const end = new Date(`1940-03-01T${endTime}`);
 
+  if (end < start) {
+    end.setDate(end.getDate() + 1); // Add one day to the end date
+  }
+
   const totalHoursMilli = end - start;
 
   const totalHours = totalHoursMilli / (1000 * 60 * 60);
@@ -70,6 +74,8 @@ const TotalHoursCalc = (startTime, endTime) => {
   const hours = Math.floor(totalHours); //this will give you the hours as a whole
   const calcMinutes = Math.round((totalHours - hours) * 60);
   const minutes = calcMinutes < 10 ? `0${calcMinutes}` : calcMinutes;
+
+  console.log("here are hours and minutes", hours, minutes);
 
   return `${hours}:${minutes}`;
 };
