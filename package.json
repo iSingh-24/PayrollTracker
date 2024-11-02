@@ -6,6 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "start:dev": "npm run build:dev & nodemon ./server/server.js",
+    "start:dev:mode": "npm run seed && npm run build:dev && node ./server/server.js",
     "build:dev": "webpack --watch",
     "start": "webpack-dev-server --open",
     "seed": "node ./bin/seed.js"
