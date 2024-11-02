@@ -10,6 +10,7 @@ const Settings = () => {
   return (
     <div>
       <Link to="/employees/create">Add Employee</Link>
+      <Link to="/employees/payrolls/search">Filter Weekly Payrolls</Link>
     </div>
   );
 };
